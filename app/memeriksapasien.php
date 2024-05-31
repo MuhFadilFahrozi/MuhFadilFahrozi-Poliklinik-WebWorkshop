@@ -145,7 +145,7 @@ include('koneksi.php');
          LEFT JOIN pasien p ON (pr.id_pasien = p.id)
          LEFT JOIN jadwal_periksa jp ON (pr.id = jp.id_jadwal)
          LEFT JOIN obat o ON (dp.id_obat = o.id)
-         GROUP BY pr.id
+         GROUP BY p.id
          ORDER BY pr.jadwal_periksa DESC");
         $no = 1;
         $query = [' obat  '];
