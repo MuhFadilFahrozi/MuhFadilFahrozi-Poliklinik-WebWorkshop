@@ -96,7 +96,7 @@ if (isset($_GET['id'])) {
                   </div>
                 <!-- /.card-body -->
                 <div class="d-flex justify-content-start mt-2">
-        <button class="btn btn-primary rounded-pill px-3" type="submit"name="simpan">Simpan</button>
+        <button class="btn btn-primary rounded-pill px-3" type="submit"name="simpan">Simpan Perubahan</button>
     </div>
 </form>
             <!-- /.card -->
@@ -131,8 +131,6 @@ if (isset($_GET['id'])) {
         <td>
             <a class="btn btn-success rounded-pill px-3"
             href="profil.php?page=profil&id=<?= $data['id'] ?>">Ubah</a>
-            <a class="btn btn-danger rounded-pill px-3" 
-                href="profil.php?page=profil&id=<?= $data['id'] ?>&aksi=hapus">Hapus
             </a>
         </td>
         </tr>

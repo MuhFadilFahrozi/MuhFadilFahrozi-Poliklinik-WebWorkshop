@@ -88,7 +88,7 @@ if (isset($_GET['id'])) {
         <td><?= $data['no_rm']?></td>
         <td>
             <a class="btn btn-success rounded-pill px-3"
-            href="riwayatpasien.php?page=pasien&id=<?= $data['id'] ?>">Detail Riwayat Pasien</a>
+            href="detailperiksa.php?page=pasien&id=<?= $data['id'] ?>">Detail Riwayat Pasien</a>
         </td>
         </tr>
         <?php endwhile; ?>
