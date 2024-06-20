@@ -1,5 +1,11 @@
 
 <?php
+
+
+if ( isset($_SESSION["login"])){
+    header("Location:login.php");
+
+}
 include('koneksi.php');
 ?>
 <head>
@@ -18,18 +24,16 @@ include('koneksi.php');
 <?php
 $nama = '';
 $alamat = '';
-$no_ktp = '';
 $no_hp = '';
-$no_rm = '';
+$poli_id = '';
 if (isset($_GET['id'])) {
-    $ambil = mysqli_query($mysqli, "SELECT * FROM pasien 
+    $ambil = mysqli_query($mysqli, "SELECT * FROM dokter 
     WHERE id='" . $_GET['id'] . "'");
     while ($row = mysqli_fetch_array($ambil)) {
         $nama = $row['nama'];
         $alamat = $row['alamat'];
-        $no_ktp = $row['no_ktp'];
         $no_hp = $row['no_hp'];
-        $no_rm = $row['no_rm'];
+        $no_rm = $row['polid_id'];
     }
 ?>
     <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
@@ -43,18 +47,58 @@ if (isset($_GET['id'])) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Riwayat Pasien</h1>
+            <h1>Edit Dokter</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Riwayat Pasien</li>
+              <li class="breadcrumb-item active">Edit Dokter</li>
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
 
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-15">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Dokter</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="nama">Nama Dokter</label>
+                    <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukan  Nama"value="<?php echo $nama ?>">
+                  </div>
+                  <div class="form-group">
+                    <label for="alamat">Alamat</label>
+                    <input type="text" class="form-control" name="alamat" id="alamat" placeholder="Masukan alamat"value="<?php echo $alamat ?>">
+                  </div>
+                  <div class="form-group">
+                    <label for="no_ktp">No Hp</label>
+                    <input type="number" class="form-control" name="no_hp" id="no_hp" placeholder="Masukan No ktp"value="<?php echo $no_hp ?>">
+                  </div>
+                  <div class="form-group">
+                    <label for="no_rm">No Rm</label>
+                    <input type="number" class="form-control" name="poli_id" id="poli_id" placeholder="Masukan No rm"value="<?php echo $poli_id ?>">
+                  </div>
+                    </div>
+                  </div>
+                  </div>
+                  </div>
+                <!-- /.card-body -->
+                <div class="d-flex justify-content-start mt-2">
+        <button class="btn btn-primary rounded-pill px-3" type="submit"name="simpan">Simpan</button>
+    </div>
+</form>
             <!-- /.card -->
 
   <!-- /.content-wrapper -->
@@ -65,9 +109,8 @@ if (isset($_GET['id'])) {
             <th scope="col">#</th>
             <th scope="col">Nama</th>
             <th scope="col">Alamat</th>
-            <th scope="col">No_ktp</th>
             <th scope="col">No_hp</th>
-            <th scope="col">No_rm</th>
+            <th scope="col">Poli_id</th>
             <th scope="col">Aksi</th>
         </tr>
     </thead>
@@ -76,19 +119,21 @@ if (isset($_GET['id'])) {
         <?php
         
         $no = 1;
-        $query = mysqli_query ($mysqli , "SELECT * FROM pasien");
+        $query = mysqli_query ($mysqli , "SELECT * FROM dokter");
         while ($data = mysqli_fetch_array($query)) :
         ?>
         <tr>
         <th scope="col"><?= $no++ ?></th>
         <td><?= $data['nama']?></td>
         <td><?= $data['alamat']?></td>
-        <td><?= $data['no_ktp']?></td>
         <td><?= $data['no_hp']?></td>
-        <td><?= $data['no_rm']?></td>
+        <td><?= $data['poli_id']?></td>
         <td>
             <a class="btn btn-success rounded-pill px-3"
-            href="riwayatpasien.php?page=pasien&id=<?= $data['id'] ?>">Detail Riwayat Pasien</a>
+            href="profil.php?page=profil&id=<?= $data['id'] ?>">Ubah</a>
+            <a class="btn btn-danger rounded-pill px-3" 
+                href="profil.php?page=profil&id=<?= $data['id'] ?>&aksi=hapus">Hapus
+            </a>
         </td>
         </tr>
         <?php endwhile; ?>
@@ -96,37 +141,35 @@ if (isset($_GET['id'])) {
     <?php
     if (isset($_POST['simpan'])) {
         if (isset($_POST['id'])) {
-            $ubah = mysqli_query($mysqli, "UPDATE pasien  SET 
+            $ubah = mysqli_query($mysqli, "UPDATE dokter  SET 
                                             nama = '" . $_POST['nama'] . "',
                                             alamat = '" . $_POST['alamat'] . "',
-                                            no_ktp = '" . $_POST['no_ktp'] . "',
                                             no_hp = '" . $_POST['no_hp'] . "',
-                                            no_rm = '" . $_POST['no_rm'] . "'
+                                            poli_id = '" . $_POST['poli_id'] . "'
                                             WHERE
                                             id = '" . $_POST['id'] . "'");
         } else {
-            $tambah = mysqli_query($mysqli, "INSERT INTO pasien (nama,alamat,no_ktp,no_hp,no_rm) 
+            $tambah = mysqli_query($mysqli, "INSERT INTO dokter (nama,alamat,no_hp,poli_id) 
                                             VALUES ( 
                                                 '" . $_POST['nama'] . "',
                                                 '" . $_POST['alamat'] . "',
-                                                '" . $_POST['no_ktp'] . "',
                                                 '" . $_POST['no_hp'] . "',
-                                                '" . $_POST['no_rm'] . "'
+                                                '" . $_POST['poli_id'] . "'
                                                 )");
         }
 
         echo "<script> 
-                document.location='riwayatpasien.php?';
+                document.location='profil.php?';
                 </script>";
     }
 
     if (isset($_GET['aksi'])) {
         if ($_GET['aksi'] == 'hapus') {
-            $hapus = mysqli_query($mysqli, "DELETE FROM pasien  WHERE id = '" . $_GET['id'] . "'");
+            $hapus = mysqli_query($mysqli, "DELETE FROM dokter  WHERE id = '" . $_GET['id'] . "'");
         }
 
         echo "<script> 
-                document.location='riwayatpasien.php';
+                document.location='profil.php';
                 </script>";
     }
     ?>

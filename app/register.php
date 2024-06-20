@@ -85,12 +85,16 @@ if (isset($_POST['submit'])){
           <!-- /.col -->
           <div class="col-4 center">
             <input type="submit" class="btn btn-primary btn-block" value="SIGNUP" name="submit"></input>
+            <a href="login.php" class="text-center">Sudah Punya Akun</a>
+
           </div>
+
+          <a href="daftarpasien.php" class="text-center">Mendaftar sebagai Pasien?</a>
           <!-- /.col -->
         </div>
       </form>
 
-      <a href="login.php" class="text-center">Sudah Punya Akun</a>
+
     </div>
     <!-- /.form-box -->
   </div><!-- /.card -->

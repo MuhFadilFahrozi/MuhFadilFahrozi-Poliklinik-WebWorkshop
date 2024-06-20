@@ -66,7 +66,7 @@ include('koneksi.php');
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Periksssa</h3>
+                <h3 class="card-title">Periksa</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -82,7 +82,7 @@ include('koneksi.php');
                   </div>
                   <div class="form-group ">
                     <label for="catatan">catatan</label>
-                    <input type="number" class="form-control" name="catatan" id="catatan" placeholder="Masukan No ktp"value="<?php echo $catatan ?>">
+                    <input type="number" class="form-control" name="catatan" id="catatan" placeholder="Masukan Catatan"value="<?php echo $catatan ?>">
                   </div>
                   <div class="form-group mb -2 ">
                     <label for="Pilih obat" class="form-tabel">Obat</label>
