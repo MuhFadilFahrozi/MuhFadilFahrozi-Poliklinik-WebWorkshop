@@ -83,7 +83,7 @@ if (isset($_GET['id'])) {
                     <input type="time" class="form-control" name="jam_selesai" id="jam_selesai" placeholder="Masukan No ktp"value="<?php echo $jam_selesai ?>">
                   </div>
                   <div class="form-group">
-                    <label for="status">jam selesai</label>
+                    <label for="status">status</label>
                     <input multiple="multiple" class="form-control" name="status" id="status" placeholder="Masukan No ktp"value="<?php echo $status ?>">
                   </div>
                   </div>
