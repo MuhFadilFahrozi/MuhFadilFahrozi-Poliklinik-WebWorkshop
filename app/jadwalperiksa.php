@@ -20,6 +20,7 @@ $nama= '';
 $hari = '';
 $jam_mulai = '';
 $jam_selesai = '';
+$status = '';
 if (isset($_GET['id'])) {
     $ambil = mysqli_query($mysqli, "SELECT * FROM jadwal_periksa 
     WHERE id='" . $_GET['id'] . "'");
@@ -28,6 +29,7 @@ if (isset($_GET['id'])) {
         $hari = $row['hari'];
         $jam_mulai = $row['jam_mulai'];
         $jam_selesai = $row['jam_selesai'];
+        $status = $row['status'];
     }
 ?>
     <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
@@ -80,6 +82,10 @@ if (isset($_GET['id'])) {
                     <label for="jam_selesai">jam selesai</label>
                     <input type="time" class="form-control" name="jam_selesai" id="jam_selesai" placeholder="Masukan No ktp"value="<?php echo $jam_selesai ?>">
                   </div>
+                  <div class="form-group">
+                    <label for="status">jam selesai</label>
+                    <input multiple="multiple" class="form-control" name="status" id="status" placeholder="Masukan No ktp"value="<?php echo $status ?>">
+                  </div>
                   </div>
                   </div>
                   </div>
@@ -100,6 +106,7 @@ if (isset($_GET['id'])) {
             <th scope="col">Hari</th>
             <th scope="col">Jam mulai</th>
             <th scope="col">jam selesai</th>
+            <th scope="col">status</th>
             <th scope="col">Aksi</th>
         </tr>
     </thead>
@@ -117,12 +124,10 @@ if (isset($_GET['id'])) {
         <td><?= $data['hari']?></td>
         <td><?= $data['jam_mulai']?></td>
         <td><?= $data['jam_selesai']?></td>
+        <td><?= $data['status']?></td>
         <td>
             <a class="btn btn-success rounded-pill px-3"
             href="jadwalperiksa.php?page=jadwalperiksa&id=<?= $data['id'] ?>">Ubah</a>
-            <a class="btn btn-danger rounded-pill px-3" 
-                href="jadwalperiksa.php?page=jadwalperiksa&id=<?= $data['id'] ?>&aksi=hapus">Hapus
-            </a>
         </td>
         </tr>
         <?php endwhile; ?>
@@ -130,20 +135,23 @@ if (isset($_GET['id'])) {
     <?php
     if (isset($_POST['simpan'])) {
         if (isset($_POST['id'])) {
+          $ubah = mysqli_query($mysqli, "UPDATE jadwal_periksa  SET status ='Tidak Aktif'");
             $ubah = mysqli_query($mysqli, "UPDATE jadwal_periksa  SET 
-                                            nama = '" . $_POST['nama'] . "',
+                                            id_dokter = '" . $_POST['id_dokter'] . "',
                                             hari = '" . $_POST['hari'] . "',
                                             jam_mulai = '" . $_POST['jam_mulai'] . "',
-                                            jam_selesai = '" . $_POST['jam_selesai'] . "'
+                                            jam_selesai = '" . $_POST['jam_selesai'] . "',
+                                            status = '" . $_POST['status'] . "'
                                             WHERE
                                             id = '" . $_POST['id'] . "'");
         } else {
-            $tambah = mysqli_query($mysqli, "INSERT INTO jadwal_periksa (nama,hari,jam_mulai,jam_selesai) 
+            $tambah = mysqli_query($mysqli, "INSERT INTO jadwal_periksa (id_dokter,hari,jam_mulai,jam_selesai,status) 
                                             VALUES ( 
-                                                '" . $_POST['nama'] . "',
+                                                '" . $_POST['id_dokter'] . "',
                                                 '" . $_POST['hari'] . "',
                                                 '" . $_POST['jam_mulai'] . "',
-                                                '" . $_POST['jam_selesai'] . "'
+                                                '" . $_POST['jam_selesai'] . "',
+                                                '" . $_POST['status'] . "'
                                                 )");
         }
 
